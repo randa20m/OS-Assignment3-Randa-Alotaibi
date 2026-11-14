@@ -32,10 +32,10 @@
 
 | Field | Your Answer |
 |-------|-------------|
-| **Full Name** | [Write your full name here] |
-| **Student ID** | [Write your student ID here] |
-| **University Email** | [yourid]@std.psau.edu.sa |
-| **GitHub Username** | [your-github-username] |
+| **Full Name** | [Randa Alotaibi] |
+| **Student ID** | [445052139] |
+| **University Email** | 445052139@std.psau.edu.sa |
+| **GitHub Username** | [(https://github.com/randa20m/OS-Assignment3-Randa-Alotaibi.git)] |
 | **Repository Link** | [Paste your repository link here] |
  
 ---
@@ -132,69 +132,66 @@
 
 ## Your Development Log
 
-### Entry 1 - [Date and Time]
-**What I did**:
+### Entry 1 -  November 13, 2026
+What I did: Implemented Feature 1 – Ready Queue Lock.
 
-**Details**:
+Details: Added a ReentrantLock to protect the shared ready queue and process map from concurrent access.
 
-**Challenges**:
+Challenges: Multiple CPU threads could access the ready queue at the same time.
 
-**Solution**:
+Solution: Used lock() and try-finally to ensure safe access and release the lock correctly.
 
-**Time spent**:
+Time spent: 20 minute 
+---
+
+### Entry 2 -  November 13, 2026
+What I did: Implemented Feature 2 – Statistics Locks.
+
+Details: Added separate ReentrantLocks to protect the context switches, completed processes, and total service time counters.
+
+Challenges: Multiple threads could update shared statistics simultaneously.
+
+Solution: Used a separate lock for each counter to prevent race conditions and maintain accurate values.
+
+Time spent: 25 minute
 
 ---
 
-### Entry 2 - [Date and Time]
-**What I did**:
+### Entry 3 -  November 13, 2026
+What I did: Started implementing Feature 3 – Counting Semaphore.
 
-**Details**:
+Details: Added a counting Semaphore to track the number of available processes in the ready queue.
 
-**Challenges**:
+Challenges: CPU workers needed to wait when no processes were available without continuously checking the queue.
 
-**Solution**:
+Solution: Added semaphore acquire() and release() operations to coordinate CPU workers.
 
-**Time spent**:
+Time spent: 20 minute
+---
+
+### Entry 4 -November 14, 2026
+What I did: Completed Feature 3 – Semaphore Shutdown.
+
+Details: Replaced the busy-waiting loop with a blocking semaphore wait and added a mechanism to wake CPU workers when all processes finish.
+
+Challenges: CPU workers could remain blocked after the last process completed.
+
+Solution: Added wakeAllCPUs() to release permits and allow the workers to terminate.
+
+Time spent: 20 minute
 
 ---
 
-### Entry 3 - [Date and Time]
-**What I did**:
+### Entry 5 - November 14, 2026
+What I did: Tested the simulation and committed the implemented features.
 
-**Details**:
+Details: Checked the verification results for context switches, completed processes, total service time, and busy-waiting polls. Created separate Git commits for the features.
 
-**Challenges**:
+Challenges: Needed to make sure that all expected and observed values matched.
 
-**Solution**:
+Solution: Ran the simulation and confirmed that all four verification checks passed.
 
-**Time spent**:
-
----
-
-### Entry 4 - [Date and Time]
-**What I did**:
-
-**Details**:
-
-**Challenges**:
-
-**Solution**:
-
-**Time spent**:
-
----
-
-### Entry 5 - [Date and Time]
-**What I did**:
-
-**Details**:
-
-**Challenges**:
-
-**Solution**:
-
-**Time spent**:
-
+Time spent: 10 minute
 ---
 
 ### Entry 6 - [Optional - Date and Time]
@@ -214,13 +211,13 @@
 
 > 💡 **TIP:** Fill this in **last**, after all entries are written.
 
-**Total time spent on assignment**: [X hours]
+**Total time spent on assignment**: 1 hour 35 minute
 
-**Most challenging part**:
+**Most challenging part**: The most challenging part was implementing the counting semaphore and making sure that all CPU workers terminate correctly after all processes are completed.
 
-**Most interesting learning**:
+**Most interesting learning**: I learned how ReentrantLock protects shared resources and how a counting semaphore coordinates multiple threads without busy waiting.
 
-**What I would do differently next time**:
+**What I would do differently next time**: I would plan the synchronization logic before writing the code and test each feature separately before combining all features.
 
 ---
 
@@ -240,7 +237,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+The main problem in the original program was that multiple CPU threads could access shared data at the same time. This caused race conditions and inconsistent results. I learned that synchronization is important when working with multiple threads. Using locks helped protect shared resources. The semaphore also helped coordinate the CPU workers safely.
 
 ## Question 2: What was the most challenging part of this assignment?
 
@@ -248,7 +245,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+The most challenging part was implementing the counting semaphore correctly. I had to make sure that CPU workers waited when no processes were available. I also needed to handle the shutdown process when all processes were completed. I solved this by using acquire() and release(). Testing helped me understand how the semaphore works.
 
 ## Question 3: How did you overcome the challenges you faced?
 
@@ -256,7 +253,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+I used ReentrantLock to protect the ready queue and shared statistics. I used separate locks for independent counters to avoid unnecessary blocking. I also used try-finally to make sure locks were always released. For the CPU workers, I used a counting semaphore instead of busy waiting. These changes improved the synchronization of the program.
 
 ## Question 4: Where can synchronization concepts be applied in real-world applications?
 
@@ -264,7 +261,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+This assignment helped me understand how threads communicate and share resources. I learned the difference between mutual exclusion and thread coordination. I also learned how race conditions can affect program results. Testing the program helped me identify whether synchronization was working correctly. I can apply these concepts to other multithreaded programs.
 
 ### Optional: What would you like to learn more about?
 
@@ -298,7 +295,7 @@
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+A race condition happens when multiple threads access shared data at the same time and the result depends on their execution order. In the original program, CPU workers could access the ready queue concurrently. This could cause incorrect queue operations or inconsistent results. ReentrantLock prevents this by allowing only one thread at a time to access the protected critical section.
 
 Verification block of the **original starter**:
 ```
@@ -321,7 +318,7 @@ Verification block of **my final version**:
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+The ready queue is protected by a ReentrantLock. The shared statistics use separate locks for context switches, completed processes, and total service time. Each lock protects its corresponding shared data. The locks are released in finally blocks to ensure safe execution even if an exception occurs.
 
 | Critical section (variable / method) | Lock used | Why it needs protection |
 |---|---|---|
@@ -336,7 +333,7 @@ Verification block of **my final version**:
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+The counting semaphore starts with zero permits. A permit is released whenever a process is added to the ready queue. CPU workers call acquire() to wait until a process becomes available. When all processes are completed, wakeAllCPUs() releases permits so blocked workers can terminate.
 
 ## Question 4: Classical Problems and Deadlock
 
@@ -345,7 +342,7 @@ Verification block of **my final version**:
 > 💡 **TIP:** Recall the bounded-buffer solution of the slides (`empty`, `full`, `mutex`) and the order of `wait()` calls in the producer and the consumer. For the deadlock, think about a producer that holds the mutex while waiting for a free slot that only a consumer (who needs the mutex) can create.
 
 **Your Answer:** *(3-5 sentences)*
-
+The semaphore is related to the Producer-Consumer problem. The main thread adds processes to the ready queue, while CPU workers consume available processes. CPU workers may also add unfinished processes back to the queue. The semaphore coordinates access by notifying waiting workers when processes become available.
 **Classical problem and roles**:
 [Name the problem; who is the producer, who is the consumer?]
 
